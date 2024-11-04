@@ -61,3 +61,35 @@ body {
   background-color: #357ae8;
 }
 
+/* ************************************** */
+/*          検索結果テーブル               */
+/* ************************************** */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  color: #333; /* ダークグレーでテキストの見やすさを向上 */
+  font-family: Arial, sans-serif;
+}
+
+th, td {
+  border: 1px solid #d0d7de; /* やわらかいグレーで境界線 */
+  padding: 10px;
+  text-align: left;
+  background-color: #f6f8fa; /* ソフトなオフホワイト背景 */
+}
+
+th {
+  background-color: #eaf1f8; /* 淡いブルーでヘッダーを強調 */
+  font-weight: bold;
+  color: #2c3e50; /* ダークブルーでヘッダーテキストの視認性をアップ */
+}
+
+tr:nth-child(even) {
+  background-color: #f2f4f6; /* 偶数行に薄いグレーで視覚的な区切り */
+}
+
+tr:hover {
+  background-color: #d7e3f4; /* ホバー時にライトブルーで強調 */
+}
