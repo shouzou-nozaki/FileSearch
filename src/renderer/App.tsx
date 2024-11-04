@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import { MemoryRouter as Router, Routes, Route, Search } from 'react-router-dom';
 import './App.css';
+import { SearchResult } from '../common/dto/searchResult';
 
 export default function App() {
   return (
@@ -14,7 +15,7 @@ export default function App() {
 
 const HomeScreen = () => {
   const [searchText, setSearchText] = useState('');
-  const [searchResults, setSearchResults] = useState<Array<{ id: number, path: string, type: string }>>([]);
+  const [searchResults, setSearchResults] = useState<Array<SearchResult>>([]);
 
   /**
    * ファイル検索処理
@@ -31,7 +32,7 @@ const HomeScreen = () => {
     ];
 
     // 検索結果を状態に保存
-    setSearchResults(sampleResults);
+    setSearchResults(results);
   };
 
   return (
@@ -62,10 +63,10 @@ const HomeScreen = () => {
             </thead>
             <tbody>
               {searchResults.map((result) => (
-                <tr key={result.id}>
-                  <td>{result.id}</td>
-                  <td>{result.path}</td>
-                  <td>{result.type}</td>
+                <tr key={result._id}>
+                  <td>{result._id}</td>
+                  <td>{result._path}</td>
+                  <td>{result._type}</td>
                 </tr>
               ))}
             </tbody>

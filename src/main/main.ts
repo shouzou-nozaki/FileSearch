@@ -14,6 +14,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+// 追加
+import { FileService } from '../common/service/fileservice';
 
 class AppUpdater {
   constructor() {
@@ -135,3 +137,8 @@ app
     });
   })
   .catch(console.log);
+
+  // ファイル検索サービス
+  ipcMain.handle('fileservice-searchFiles',(event, fileName:string) => {
+    return FileService.searchFiles(fileName);
+  });
