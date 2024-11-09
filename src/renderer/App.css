@@ -18,34 +18,58 @@ body {
   padding-top: 50px;
 }
 
+/* ************************************** */
+/*          　　　検索欄　　               */
+/* ************************************** */
+.search-window{
+  width: 100%;
+}
 
 /* ロゴのスタイル */
-.logo {
+.search-window .logo {
   font-size: 100px;
   font-weight: bold;
   color: #D8C3A5;
   margin: 30px;
+  text-align: center;
 }
-.logo span {
+.search-window .logo span {
   color: #D8C3A5;
 }
 
-/* 検索ボックスのスタイル */
-.search-box {
+/* 検索ボックス */
+.search-box{
+  width: 100%; /* 画面全体に対する幅 */
+  /* max-width: 800px; テーブルの最大幅を指定 */
+  border-collapse: collapse;
+  margin: 20px 0;
+  color: #333;
+  font-family: Arial, sans-serif;
+  max-height: 50%; /* 表示領域の高さを指定 */
+  overflow-y: auto; /* 縦スクロールを有効にする */
+  max-height: 300px; /* テーブルの高さを制限 */
+  overflow-y: auto; /* 縦スクロールを有効にする */
   display: flex;
-  align-items: center; /* 縦中央揃え */
-  gap: 8px; /* input と button の間に少しスペースを追加 */
+  align-items: center;
+  gap: 8px;
+  width: 100%; 
+  /* max-width: 100%; 画面が狭い場合は幅を90%に縮める */
+  margin-bottom: 20px; /* テーブルとの間隔を調整 */
+  justify-content: center; /* 水平方向に中央揃え */
 }
 
+/* キーワード入力欄 */
 .search-box input[type="text"] {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #dcdcdc;
   border-radius: 4px;
   outline: none;
-  flex: 1; /* input をボタンとバランス良く配置 */
+  flex: 1; /* 残りの幅をinputに割り当て */
+  max-width: 400px;
 }
 
+/* 検索ボタン */
 .search-box button {
   padding: 10px 16px;
   font-size: 16px;
@@ -64,12 +88,15 @@ body {
 /* ************************************** */
 /*          検索結果テーブル               */
 /* ************************************** */
+.search-result{
+  max-height: 500px; /* テーブルの高さを制限 */
+  overflow-y: auto; /* 縦スクロールを有効にする */
+}
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-  color: #333; /* ダークグレーでテキストの見やすさを向上 */
+  color: #333;
   font-family: Arial, sans-serif;
 }
 
@@ -84,6 +111,12 @@ th {
   background-color: #eaf1f8; /* 淡いブルーでヘッダーを強調 */
   font-weight: bold;
   color: #2c3e50; /* ダークブルーでヘッダーテキストの視認性をアップ */
+  /* 縦スクロール時に固定する */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  /* tbody内のセルより手前に表示する */
+  z-index: 1;
 }
 
 tr:nth-child(even) {
@@ -92,4 +125,33 @@ tr:nth-child(even) {
 
 tr:hover {
   background-color: #d7e3f4; /* ホバー時にライトブルーで強調 */
+}
+
+
+/* ************************************** */
+/*       ローディングアニメーション         */
+/* ************************************** */
+
+/* ローディングスピナーとメッセージ */
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: black;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid black;
+  border-top: 3px solid #f3f3f3;
+  border-radius: 50%;
+  margin-right: 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

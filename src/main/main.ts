@@ -139,6 +139,6 @@ app
   .catch(console.log);
 
   // ファイル検索サービス
-  ipcMain.handle('fileservice-searchFiles',(event, fileName:string) => {
-    return FileService.searchFiles(fileName);
+  ipcMain.handle('fileservice-searchFiles',(event, dir_root:string, searchText:string) => {
+    return FileService.searchFiles(dir_root, searchText);
   });

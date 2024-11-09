@@ -25,7 +25,7 @@ const electronHandler = {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
     // ファイル検索サービス追加
-    searchFiles: (fileName: string) => ipcRenderer.invoke('fileservice-searchFiles', fileName),
+    searchFiles: (dir_root:string, searchText: string) => ipcRenderer.invoke('fileservice-searchFiles', dir_root, searchText),
   },
 
 };

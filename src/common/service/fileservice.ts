@@ -7,50 +7,49 @@ export class FileService {
 
   /**
    * 指定したディレクトリからキーワードに一致するファイルを再帰的に検索します。
-   * @param dir 検索開始ディレクトリのパス
-   * @param keyword ファイル名に含まれるキーワード
+   * @param dir_root 検索開始ディレクトリのパス
+   * @param searchText ファイル名に含まれるキーワード
    * @returns 一致するファイルパスのリスト
    */
-  static searchFiles(fileName:string): Array<SearchResult> {
+  static searchFiles(dir_root:string, searchText:string): Array<SearchResult> {
     // 戻り値
     let rtn = new Array<SearchResult>();
+    let i = 1;
     try{
-        let dir_root = "C:\\Users\\soro0\\OneDrive\\デスクトップ\\TODO";
-        // ディレクトリ内のファイル、サブディレクトリ取得
-        const files = fs.readdirSync(dir_root);
+      console.log("【メソッド開始】" + " [ディレクトリ] " + dir_root + " [検索語] " + searchText);
+      // 何も入力されていないときは、処理を終える
+      if(searchText === "") return rtn;
 
-        // ファイルごとチェック
-        for (const file of files) {
-          console.log(file); // 確認ログ
+      // ディレクトリ内のファイル、サブディレクトリ取得
+      const files = fs.readdirSync(dir_root);
 
-          // ターゲットファイルのフルパス作成
-          const filePath = path.join(dir_root, fileName);
+      // ファイルごとチェック
+      files.forEach(file => {
+        console.log(file);
+        // 現在ファイルのフルパス作成
+        const filePath = path.join(dir_root, file);
 
-          // ファイルが存在するか確認
-          const hasTargetFile = fs.statSync(filePath);
-
-          // 検索ファイル名を一部含むファイルの場合
-          if(file == fileName) {
-            var searchResult = new SearchResult();
-            searchResult._id = "1";
-            searchResult._path = filePath;
-            searchResult._type = new FileUtils().getFileTypeFromExtention(path.extname(filePath));
-
-            rtn.push(searchResult);
-            console.log("ファイル発見");
-            continue;
-          }
-
-          // ディレクトリであれば再帰的に検索
-          if (hasTargetFile.isDirectory()) {
-            console.log("ディレクトリ発見：");
-          } else if (file.toLowerCase().includes(fileName.toLowerCase())) {
-            // ファイル名にキーワードが含まれている場合、結果リストに追加
-            // rtn.push(searchResult);
-          }
+        // ディレクトリであれば再帰的に検索
+        if (fs.statSync(filePath).isDirectory()) {
+          // TODO:別スレッド化
+          let subResult = this.searchFiles(filePath, searchText);
+          rtn = rtn.concat(subResult); // 親のrtnに統合
         }
+
+        // 検索ファイル名を一部含むファイルの場合
+        if(~file.indexOf(searchText)) {
+          // 検索結果データ作成
+          var searchResult = new SearchResult();
+          searchResult._id = (i++).toString();
+          searchResult._path = filePath;
+          searchResult._type = new FileUtils().getFileTypeFromExtention(path.extname(filePath));
+
+          // 返却データの格納
+          rtn.push(searchResult);
+        }
+      })
     }catch(ex){
-        console.log(ex);
+      console.log("エラーが発生しました。" + ex);
     }
     return rtn;
   }

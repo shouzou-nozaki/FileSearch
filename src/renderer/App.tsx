@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MemoryRouter as Router, Routes, Route, Search } from 'react-router-dom';
 import './App.css';
 import { SearchResult } from '../common/dto/searchResult';
+import { FileService } from '../common/service/fileservice';
 
 export default function App() {
   return (
@@ -16,13 +17,15 @@ export default function App() {
 const HomeScreen = () => {
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState<Array<SearchResult>>([]);
-
+  const [loading, setLoading] = useState(false);  // ローディング状態を追加
+  
   /**
    * ファイル検索処理
    */
   const SearchFile = async () => {
     // ElectronのIPCを使って検索を実行し、結果を取得します
-    const results = await window.electron.ipcRenderer.searchFiles(searchText);
+    setLoading(true);
+    const results = await window.electron.ipcRenderer.searchFiles("C:\\Users\\soro0", searchText);
 
     // サンプルデータを仮の結果として使用（実際には `results` を使用）
     const sampleResults = [
@@ -33,10 +36,11 @@ const HomeScreen = () => {
 
     // 検索結果を状態に保存
     setSearchResults(results);
+    setLoading(false);
   };
 
   return (
-    <div>
+    <div className='search-window'>
       <div className="logo">File<span>Probe</span></div>
 
       <div className="search-box">
@@ -52,7 +56,7 @@ const HomeScreen = () => {
 
       {/* 検索結果がある場合にテーブルを表示 */}
       {searchResults.length > 0 && (
-        <div>
+        <div className="search-result">
           <table>
             <thead>
               <tr>
