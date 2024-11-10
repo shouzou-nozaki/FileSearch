@@ -113,7 +113,7 @@ th {
   color: #2c3e50; /* ダークブルーでヘッダーテキストの視認性をアップ */
   /* 縦スクロール時に固定する */
   position: -webkit-sticky;
-  position: sticky;
+  position: sticky; 
   top: 0;
   /* tbody内のセルより手前に表示する */
   z-index: 1;
@@ -139,6 +139,7 @@ tr:hover {
   margin-top: 20px;
   font-size: 18px;
   color: black;
+  text-align: center;
 }
 
 .spinner {

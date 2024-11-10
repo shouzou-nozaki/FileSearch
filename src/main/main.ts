@@ -9,7 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain ,clipboard} from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -80,6 +80,7 @@ const createWindow = async () => {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
+        contextIsolation: true
     },
   });
 
@@ -139,6 +140,11 @@ app
   .catch(console.log);
 
   // ファイル検索サービス
-  ipcMain.handle('fileservice-searchFiles',(event, dir_root:string, searchText:string) => {
-    return FileService.searchFiles(dir_root, searchText);
-  });
+ipcMain.handle('fileservice-searchFiles',(event, dir_root:string, searchText:string) => {
+  return FileService.searchFiles(dir_root, searchText);
+});
+
+// パスをコピー
+ipcMain.handle('clipboard:copy', (_event, path: string) => {
+  clipboard.writeText(path);
+});
