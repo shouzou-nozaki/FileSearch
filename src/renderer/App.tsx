@@ -2,6 +2,8 @@ import { useState, useRef } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { SearchResult } from '../common/dto/searchResult';
+import { app } from 'electron/main';
+import { electron } from 'process';
 
 
 export default function App() {
@@ -31,12 +33,16 @@ const HomeScreen = () => {
  * ファイル検索処理
  */
 const SearchFile = async () => {
-  // ElectronのIPCを使って検索を実行し、結果を取得します
+  // ローディング状態をON
   setLoading(true);
-  const results = await window.electron.fileSearch.searchFiles("C:\\Users\\soro0", searchText);
+  // ローカルパス取得
+  const localPath = await window.electron.getPath.getPath();
+  // ファイル検索実行
+  const results = await window.electron.fileSearch.searchFiles(localPath, searchText);
 
-  // 検索結果を状態に保存
+  // 検索結果格納
   setSearchResults(results);
+  // ローディング状態をOFF
   setLoading(false);
 };
 

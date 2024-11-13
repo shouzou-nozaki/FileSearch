@@ -14,7 +14,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* 画面上部に配置 */
   padding-top: 50px;
 }
 
@@ -25,7 +24,7 @@ body {
   width: 100%;
 }
 
-/* ロゴのスタイル */
+/* ロゴ */
 .search-window .logo {
   font-size: 100px;
   font-weight: bold;
@@ -39,23 +38,21 @@ body {
 
 /* 検索ボックス */
 .search-box{
-  width: 100%; /* 画面全体に対する幅 */
-  /* max-width: 800px; テーブルの最大幅を指定 */
+  width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
   color: #333;
   font-family: Arial, sans-serif;
-  max-height: 50%; /* 表示領域の高さを指定 */
-  overflow-y: auto; /* 縦スクロールを有効にする */
-  max-height: 300px; /* テーブルの高さを制限 */
-  overflow-y: auto; /* 縦スクロールを有効にする */
+  max-height: 50%;
+  overflow-y: auto;
+  max-height: 300px;
+  overflow-y: auto; 
   display: flex;
   align-items: center;
   gap: 8px;
   width: 100%; 
-  /* max-width: 100%; 画面が狭い場合は幅を90%に縮める */
-  margin-bottom: 20px; /* テーブルとの間隔を調整 */
-  justify-content: center; /* 水平方向に中央揃え */
+  margin-bottom: 20px;
+  justify-content: center;
 }
 
 /* キーワード入力欄 */
@@ -65,7 +62,7 @@ body {
   border: 1px solid #dcdcdc;
   border-radius: 4px;
   outline: none;
-  flex: 1; /* 残りの幅をinputに割り当て */
+  flex: 1;
   max-width: 400px;
 }
 
@@ -89,8 +86,8 @@ body {
 /*          検索結果テーブル               */
 /* ************************************** */
 .search-result{
-  max-height: 500px; /* テーブルの高さを制限 */
-  overflow-y: auto; /* 縦スクロールを有効にする */
+  max-height: 500px; 
+  overflow-y: auto;
 }
 
 table {
@@ -101,30 +98,28 @@ table {
 }
 
 th, td {
-  border: 1px solid #d0d7de; /* やわらかいグレーで境界線 */
+  border: 1px solid #d0d7de;
   padding: 10px;
   text-align: left;
-  background-color: #f6f8fa; /* ソフトなオフホワイト背景 */
+  background-color: #f6f8fa;
 }
 
 th {
-  background-color: #eaf1f8; /* 淡いブルーでヘッダーを強調 */
+  background-color: #eaf1f8;
   font-weight: bold;
-  color: #2c3e50; /* ダークブルーでヘッダーテキストの視認性をアップ */
-  /* 縦スクロール時に固定する */
+  color: #2c3e50; 
   position: -webkit-sticky;
   position: sticky; 
   top: 0;
-  /* tbody内のセルより手前に表示する */
   z-index: 1;
 }
 
 tr:nth-child(even) {
-  background-color: #f2f4f6; /* 偶数行に薄いグレーで視覚的な区切り */
+  background-color: #f2f4f6; 
 }
 
 tr:hover {
-  background-color: #d7e3f4; /* ホバー時にライトブルーで強調 */
+  background-color: #d7e3f4;
 }
 
 
@@ -132,7 +127,7 @@ tr:hover {
 /*       ローディングアニメーション         */
 /* ************************************** */
 
-/* ローディングスピナーとメッセージ */
+/* ローディングスピナー */
 .loading-spinner {
   display: flex;
   align-items: center;
@@ -150,6 +145,7 @@ tr:hover {
   border-radius: 50%;
   margin-right: 10px;
   animation: spin 1s linear infinite;
+  margin-left: 35.5%;
 }
 
 @keyframes spin {

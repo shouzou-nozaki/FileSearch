@@ -73,9 +73,11 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
-    icon: getAssetPath('icon.png'),
+    resizable:true,
+    titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'default', // macOSのみhiddenInsetを適用
+    frame: process.platform !== 'darwin', // macOS以外はframeを有効にする
+    // icon: getAssetPath('icon.png'),
+    icon: getAssetPath('fileprobe.ico'),
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
@@ -83,6 +85,8 @@ const createWindow = async () => {
         contextIsolation: true
     },
   });
+
+  mainWindow.maximize();  // 最大化表示
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 
@@ -140,11 +144,16 @@ app
   .catch(console.log);
 
   // ファイル検索サービス
-ipcMain.handle('fileservice-searchFiles',(event, dir_root:string, searchText:string) => {
+ipcMain.handle('fileservice-searchFiles',(_event, dir_root:string, searchText:string) => {
   return FileService.searchFiles(dir_root, searchText);
 });
 
 // パスをコピー
 ipcMain.handle('clipboard:copy', (_event, path: string) => {
   clipboard.writeText(path);
+});
+
+// ローカル環境パス取得
+ipcMain.handle('getLocalPath', (_event) => {
+  return app.getPath('home');
 });

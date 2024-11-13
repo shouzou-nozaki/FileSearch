@@ -14,11 +14,9 @@ export class FileService {
    static async searchFiles(dir_root: string, searchText: string): Promise<Array<SearchResult>> {
     // 戻り値
     let rtn = new Array<SearchResult>();
-    let i = 1;
-
+    
     try {
-      // console.log("【メソッド開始】" + " [ディレクトリ] " + dir_root + " [検索語] " + searchText);
-      
+
       // 何も入力されていないときは、空のリストを返す
       if (searchText === "") return rtn;
 
@@ -42,7 +40,7 @@ export class FileService {
           // ファイル情報作成
           const searchResult = new SearchResult();
 
-          searchResult._id = (i++).toString();
+          searchResult._id = "0";
           searchResult._path = filePath;
           searchResult._type = new FileUtils().getFileTypeFromExtention(path.extname(filePath));
 
@@ -53,6 +51,9 @@ export class FileService {
     } catch (ex) {
       // console.log("エラーが発生しました。", ex);
     }
+    rtn.forEach((result,index) => {
+      result._id = (++index).toString();
+    });
     return rtn;
   }
 }

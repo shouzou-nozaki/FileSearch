@@ -168,8 +168,8 @@
     "webpack-merge": "^5.9.0"
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "FileProbe",
+    "appId": "nozaki_fileprobe",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
@@ -191,7 +191,21 @@
       "hardenedRuntime": true,
       "entitlements": "assets/entitlements.mac.plist",
       "entitlementsInherit": "assets/entitlements.mac.plist",
-      "gatekeeperAssess": false
+      "gatekeeperAssess": false,
+      "icon":"assets/fileprobe.icns"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/fileprobe.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Development",
+      "icon":"assets/fileprobe.png"
     },
     "dmg": {
       "contents": [
@@ -206,17 +220,6 @@
           "path": "/Applications"
         }
       ]
-    },
-    "win": {
-      "target": [
-        "nsis"
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage"
-      ],
-      "category": "Development"
     },
     "directories": {
       "app": "release/app",

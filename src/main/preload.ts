@@ -1,11 +1,10 @@
 // Disable no-unused-vars, broken for spread args
 /* eslint no-unused-vars: off */
+import { Console } from 'console';
 import {contextBridge, ipcRenderer, IpcRendererEvent, clipboard  } from 'electron';
 import { cli } from 'webpack';
 
 export type Channels = 'ipc-example';
-
-console.log("clipboard object in preload:", clipboard); // ここで clipboard が undefined でないか確認
 
 const electronHandler = {
   ipcRenderer: {
@@ -37,6 +36,10 @@ const electronHandler = {
     // パスをコピー
     copyPath: (path: string) => ipcRenderer.invoke('clipboard:copy', path),
   },
+  getPath:{
+    // ローカルパス取得
+    getPath:() => ipcRenderer.invoke('getLocalPath'),
+  }
 
 };
 
